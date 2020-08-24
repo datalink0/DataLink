@@ -1,0 +1,45 @@
+// Controls
+$color-primary: #5379B5;
+$color-error: red;
+$color-control-dark-background: #2C2C2C;
+$color-control-dark-foreground: white;
+$color-control-dark-hover: #4C4C4C;
+$color-control-dark-active: #6C6C6C;
+$border-radius-control: 3px;
+
+// Sidebar
+$color-sidebar-background: #3f3f3f;
+$color-sidebar-foreground: white;
+
+// // Nodes
+// $color-node-background: #3f3f3fcc;
+// $color-node-foreground: white;
+// $color-node-selected: $color-primary;
+// $color-node-title-background: black;
+// $color-node-title-foreground: white;
+// $border-radius-node: 4px;
+
+// Nodes
+$color-node-background: white;
+$color-node-foreground: #555555;;
+$color-node-selected: #a1aeb9;
+$color-node-title-background: rgb(247, 247, 247);
+$color-node-title-foreground: #2b2b2b;;
+$border-radius-node: 4px;
+$color-node-border: #cacaca;
+
+// // Connections
+// $color-connection-default: white;
+// $color-connection-allowed: green;
+// $color-connection-forbidden: red;
+
+// Connections
+$color-connection-default: #4ea9ff;
+$color-connection-allowed: #1bb647;
+$color-connection-forbidden: #dd2222;
+
+// Interface colors
+$iftypes: ();
+
+// Misc
+$visual-transition: 0.1s linear;
