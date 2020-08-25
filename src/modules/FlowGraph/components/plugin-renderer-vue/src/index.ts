@@ -7,13 +7,12 @@ import Node from "./components/node/Node.vue";
 import NodeInterface from "./components/node/NodeInterface.vue";
 import NodeOption from "./components/node/NodeOption.vue";
 import ContextMenu from "./components/ContextMenu.vue";
-
-// Fixed: Removed Sidebar 
+import Sidebar from "@/modules/Sidebar";
 
 export const Components = {
     Connection, ConnectionWrapper, TemporaryConnection,
     Node, NodeInterface, NodeOption,
-    ContextMenu
+    ContextMenu, Sidebar
 };
 
 export * from "./baklavaVuePlugin";

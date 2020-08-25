@@ -46,7 +46,7 @@
             @click="onContextMenuClick"
         ></component>
 
-        <component :is="plugin.components.sidebar"></component>
+        <!-- <component :is="plugin.components.sidebar"></component> -->
 
         <component
             v-if="plugin.enableMinimap"

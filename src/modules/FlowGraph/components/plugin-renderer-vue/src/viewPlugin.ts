@@ -10,9 +10,8 @@ import ConnectionView from "./components/connection/ConnectionView.vue";
 import ConnectionWrapper from "./components/connection/ConnectionWrapper.vue";
 import TempConnectionView from "./components/connection/TemporaryConnection.vue";
 import ContextMenu from "./components/ContextMenu.vue";
+import Sidebar from "@/modules/Sidebar";
 import Minimap from "./components/Minimap.vue";
-
-// Fixed: Removed Sidebar 
 
 export class ViewPlugin implements IPlugin, IViewPlugin {
 
@@ -20,7 +19,7 @@ export class ViewPlugin implements IPlugin, IViewPlugin {
     public editor!: IEditor;
     public panning = { x: 0, y: 0 };
     public scaling = 1;
-    public sidebar = { visible: false, nodeId: "", optionName: "" };
+    public sidebar = { visible: true, nodeId: "", optionName: "" };
 
     /** Use straight connections instead of bezier curves */
     public useStraightConnections = false;
@@ -52,6 +51,7 @@ export class ViewPlugin implements IPlugin, IViewPlugin {
         connection: ConnectionWrapper,
         tempConnection: TempConnectionView,
         contextMenu: ContextMenu,
+        sidebar: Sidebar,
         minimap: Minimap
     };
 

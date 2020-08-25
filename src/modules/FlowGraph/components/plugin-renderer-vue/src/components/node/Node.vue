@@ -24,7 +24,7 @@
         </div>
       </div>
       
-      // TODO: Open Sidebar on Click
+      <!-- TODO: Open Sidebar on Click -->
       <!-- Content -->
       <div class="__content">
         <!-- Options -->
@@ -37,10 +37,9 @@
               :option="option"
               :componentName="option.optionComponent"
               :node="data"
-              @openSidebar="openSidebar(name)"
             ></component>
 
-            <portal
+            <!-- <portal
               :key="'sb_' + name"
               to="sidebar"
               v-if="
@@ -57,7 +56,7 @@
                 :componentName="option.sidebarComponent"
                 :node="data"
               ></component>
-            </portal>
+            </portal> -->
           </template>
         </div>
       </div>
@@ -134,7 +133,6 @@ export default class NodeView extends Vue {
   }
 
   get styles() {
-    console.log(this.data);
     return {
       top: `${this.data.position.y}px`,
       left: `${this.data.position.x}px`,
@@ -204,10 +202,10 @@ export default class NodeView extends Vue {
     }
   }
 
-  openSidebar(optionName: string) {
-    this.plugin.sidebar.nodeId = this.data.id;
-    this.plugin.sidebar.optionName = optionName;
-    this.plugin.sidebar.visible = true;
-  }
+  // openSidebar(optionName: string) {
+  //   this.plugin.sidebar.nodeId = this.data.id;
+  //   this.plugin.sidebar.optionName = optionName;
+  //   this.plugin.sidebar.visible = true;
+  // }
 }
 </script>

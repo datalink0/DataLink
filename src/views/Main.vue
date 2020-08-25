@@ -10,6 +10,7 @@ import { Component, Vue } from "vue-property-decorator";
 import FlowGraph from "@/modules/FlowGraph";
 import Sidebar from "@/modules/Sidebar";
 
+
 @Component({
   components: {
     FlowGraph,
@@ -22,7 +23,6 @@ export default class Main extends Vue {}
 <style scoped>
   .main{
     display: flex;
-    min-height: 100%;
-    height: 100%;
+    flex: 1 1 auto;
   }
 </style>
