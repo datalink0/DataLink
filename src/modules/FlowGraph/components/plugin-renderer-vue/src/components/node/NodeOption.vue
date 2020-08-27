@@ -55,7 +55,6 @@ export default class NodeOptionView extends Vue {
     }
 
     mounted() {
-        console.log(this);
         this.plugin.hooks.renderOption.execute(this);
     }
 

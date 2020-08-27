@@ -1,5 +1,5 @@
 <template>
-  <div :id="data.id" :class="classes" :style="styles">
+  <div :id="data.id" :class="classes" :style="styles" @click="openSidebar">
     <!-- Inputs -->
     <div class="__inputs">
       <component
@@ -13,7 +13,6 @@
     <div class="node___wrapper">
       <div
         class="node___title-container"
-
         @mousedown="startDrag"
         @contextmenu.self.prevent="openContextMenu"
       >
@@ -24,7 +23,7 @@
           <span>{{ data.name }}</span>
         </div>
       </div>
-      
+
       <!-- TODO: Open Sidebar on Click -->
       <!-- Content -->
       <div class="__content">
@@ -40,15 +39,13 @@
               :node="data"
               @openSidebar="openSidebar(name)"
             ></component>
-
             <portal
               :key="'sb_' + name"
               to="sidebar"
               v-if="plugin.sidebar.nodeId === data.id && plugin.sidebar.optionName === name && option.sidebarComponent"
-            
             >
               <component
-                :is="plugin.components.nodeOption"
+                :is="data.sidebarComponent"
                 :key="data.id + name"
                 :name="name"
                 :option="option"
@@ -187,8 +184,8 @@ export default class NodeView extends Vue {
     }
   }
 
-  openSidebar(){
-    console.log("123")
+  openSidebar() {
+  
     this.plugin.sidebar.nodeId = this.data.id;
     this.plugin.sidebar.optionName = "SidebarTest";
   }

@@ -6,8 +6,6 @@ import { InterfaceTypePlugin } from "@/modules/FlowGraph/components/plugin-inter
 
 import {
     FunctionNode,
-    OutputNode,
-    InputNode,
   } from "@/modules/FlowGraph/components/nodes";
 
 const state = {
@@ -34,17 +32,13 @@ const actions = {
                     state.editor.use(state.viewPlugin);
                     state.editor.use(state.intfTypePlugin);
                     state.editor.use(state.engine);
-
-                    state.editor.registerNodeType("Input", InputNode);
-                    state.editor.registerNodeType("Output", OutputNode);
                     state.editor.registerNodeType("Function", FunctionNode);
 
                     commit('setInitiated');
-
-                    resolve(true);
+                    resolve();
                 }, 1000)
             } catch (error) {
-                reject(false);
+                reject();
                 throw error;
             }
         }).catch(error => {

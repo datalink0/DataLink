@@ -13,6 +13,7 @@ export interface IInterfaceCreateOptions {
 
     icon?: string;
     color?: string;
+    sidebarComponent?: string;
 }
 
 /**
@@ -24,6 +25,8 @@ export abstract class Node implements INode {
     public abstract type: string;
     /** Customizable display name of the node. */
     public abstract name: string;
+    /** Customizable siebarcomponent of the node. */
+    public abstract sidebarComponent: string;
     /** Unique identifier of the node */
     public id: string = "node_" + generateId();
     /** A map of all interfaces of the node.
@@ -44,7 +47,7 @@ export abstract class Node implements INode {
     public icon: string = "";
 
      /** color of the node */
-     public color: string = "#f7f7f7";
+    public color: string = "#f7f7f7";
 
     public events = {
         beforeAddInterface: new PreventableBaklavaEvent<IAddInterfaceEventData>(),

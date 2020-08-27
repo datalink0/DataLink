@@ -52,6 +52,7 @@ import {
   Inject,
   Watch,
   Model,
+  Provide,
 } from "vue-property-decorator";
 import { mapGetters, mapState } from "vuex";
 import { ViewPlugin } from "../FlowGraph/components/plugin-renderer-vue/src";
@@ -72,13 +73,17 @@ export default class Sidebar extends Vue {
   minWidth: number = 100;
   width: number = 328;
   initiated!: Boolean;
-  plugin!: ViewPlugin;
+  
+    @Provide("plugin")
+    plugin!: ViewPlugin;
+
 
   get nodeName() {
     if (!this.plugin.sidebar.nodeId) return;
 
     const id = this.plugin.sidebar.nodeId;
     const n = this.plugin.editor.nodes.find((x) => x.id === id);
+
     return n ? n.name : "";
   }
 
