@@ -11,6 +11,7 @@ import {
   } from "@/modules/FlowGraph/components/nodes";
 
 const state = {
+    initiated: false,
     editor: new Editor(),
     engine: new Engine(true),
     viewPlugin: new ViewPlugin(),
@@ -25,7 +26,7 @@ const getters = {
 
 const actions = {
 
-    initiateEditor() {
+    initiateEditor({commit}:any) {
         return new Promise((resolve, reject) => {
             try {
                 setTimeout(() => {
@@ -37,6 +38,8 @@ const actions = {
                     state.editor.registerNodeType("Input", InputNode);
                     state.editor.registerNodeType("Output", OutputNode);
                     state.editor.registerNodeType("Function", FunctionNode);
+
+                    commit('setInitiated');
 
                     resolve(true);
                 }, 1000)
@@ -53,6 +56,9 @@ const actions = {
 };
 
 const mutations = {
+    setInitiated(state:any) {
+        state.initiated = true;
+    }
 };
 
 

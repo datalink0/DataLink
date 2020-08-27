@@ -8,7 +8,7 @@
 import Vue from "vue";
 import { BaklavaVuePlugin } from "@/modules/FlowGraph/components/plugin-renderer-vue/src";
 
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState} from "vuex";
 import "@/modules/FlowGraph/components/plugin-renderer-vue/src/styles/all.scss";
 
 Vue.use(BaklavaVuePlugin);
@@ -21,23 +21,17 @@ export default {
     load() {
       this.editor.load(this.state);
     },
-    ...mapActions("flowData",["initiateEditor"]),
+    ...mapActions("flowData", ["initiateEditor"]),
   },
   data() {
     return {
-      initiated: false,
-      editor: this.$store.state.flowData.editor,
-      viewPlugin: this.$store.state.flowData.viewPlugin,
     };
   },
+  computed: {
+    ...mapState("flowData", ["initiated", "editor", "viewPlugin"]),
+  },
   created() {
-    this.initiateEditor()
-      .then((result) => {
-        this.initiated = true;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    this.initiateEditor();
   },
 };
 </script>

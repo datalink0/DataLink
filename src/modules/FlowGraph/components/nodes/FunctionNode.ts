@@ -11,8 +11,9 @@ export class FunctionNode extends Node {
         super();
         this.addInputInterface("Input",undefined, undefined, { type: "number" });
         this.addOutputInterface("Output", { type: "number" });
-        //this.addOption("Value", "NumberOption",0);
+        this.addOption("Value", "NumberOption",0);
         //this.addOption("Operation", "SelectOption", "Add", undefined, {selected: "Add", items: [ "Add", "Subtract" ] });
+        this.addOption("SidebarTest", "ButtonOption","this is a test", "TextOption");
     }
 
     public calculate() {

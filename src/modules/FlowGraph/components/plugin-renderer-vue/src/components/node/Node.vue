@@ -13,6 +13,7 @@
     <div class="node___wrapper">
       <div
         class="node___title-container"
+
         @mousedown="startDrag"
         @contextmenu.self.prevent="openContextMenu"
       >
@@ -37,16 +38,14 @@
               :option="option"
               :componentName="option.optionComponent"
               :node="data"
+              @openSidebar="openSidebar(name)"
             ></component>
 
-            <!-- <portal
+            <portal
               :key="'sb_' + name"
               to="sidebar"
-              v-if="
-              plugin.sidebar.nodeId === data.id &&
-                plugin.sidebar.optionName === name &&
-                option.sidebarComponent
-            "
+              v-if="plugin.sidebar.nodeId === data.id && plugin.sidebar.optionName === name && option.sidebarComponent"
+            
             >
               <component
                 :is="plugin.components.nodeOption"
@@ -56,7 +55,7 @@
                 :componentName="option.sidebarComponent"
                 :node="data"
               ></component>
-            </portal> -->
+            </portal>
           </template>
         </div>
       </div>
@@ -188,6 +187,12 @@ export default class NodeView extends Vue {
     }
   }
 
+  openSidebar(){
+    console.log("123")
+    this.plugin.sidebar.nodeId = this.data.id;
+    this.plugin.sidebar.optionName = "SidebarTest";
+  }
+
   openContextMenu(ev: MouseEvent) {
     this.contextMenu.show = true;
     this.contextMenu.x = ev.offsetX;
@@ -201,11 +206,5 @@ export default class NodeView extends Vue {
         break;
     }
   }
-
-  // openSidebar(optionName: string) {
-  //   this.plugin.sidebar.nodeId = this.data.id;
-  //   this.plugin.sidebar.optionName = optionName;
-  //   this.plugin.sidebar.visible = true;
-  // }
 }
 </script>

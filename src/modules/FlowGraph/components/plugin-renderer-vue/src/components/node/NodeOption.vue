@@ -7,7 +7,7 @@
         :value="value"
         :option="option"
         @input="updateValue"
-       
+       @openSidebar="$emit('openSidebar')"
     ></component>
 </template>
 
@@ -55,6 +55,7 @@ export default class NodeOptionView extends Vue {
     }
 
     mounted() {
+        console.log(this);
         this.plugin.hooks.renderOption.execute(this);
     }
 
