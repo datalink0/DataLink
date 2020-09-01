@@ -28,7 +28,9 @@ export function calculateOrder(nodes: ReadonlyArray<INode>, connections: Readonl
     });
 
     // DFS for initial tree building and cycle detection
-    const outputs: INode[] = roots || nodes.filter((n) => isEmpty(n.outputInterfaces));
+    const outputs: INode[] = roots || nodes.filter((n) =>  isEmpty(n.outputInterfaces));
+
+    console.log(nodes.filter((n) =>  isEmpty(n.outputInterfaces)))
     const root: ITreeNode = {
         children: outputs.map((o) => ({ n: o, children: [] }))
     };

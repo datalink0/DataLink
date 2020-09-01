@@ -14,7 +14,6 @@
 
 
 <script lang="ts">
-//  @openSidebar="$emit('openSidebar')" 
 import { CreateElement, VueConstructor } from "vue";
 import { Component, Prop, Vue, Inject } from "vue-property-decorator";
 import { INodeOption, INode } from "../../../../core/types";

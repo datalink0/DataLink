@@ -1,46 +1,21 @@
 <template>
-  <div :class="['sidebar', { '--open': this.plugin.sidebar.visible }]" :style="styles">
-    <div class="__resizer" @mousedown="startResize"></div>
-    <div class="sidebar___header-container">
-      <div class="sidebar___header-wrapper">
-        <div class="sidebar___title-container">
-          <div class="sidebar___title-wrapper">
-            <div class="sidebar___title-icon-container">
-              <div class="sidebar___title-icon-wrapper">
-                <i class="sidebar___title-icon">1</i>
-              </div>
+  <div class="sidebar" :style="styles">
+    <div :class="classes">
+      <div class="__resizer" @mousedown="startResize"></div>
+      <div class="sidebar___flex-wrapper">
+        <SidebarHeader @select="selectNav($event)" />
+        <div class="sidebar___body-container">
+          <div class="sidebar___body-wrapper">
+            <div class="sidebar___section" role="tab" :style="selectSection('Details')">
+              <SidebarSection />
             </div>
-            <div class="sidebar___title" title="">{{nodeName }}</div>
-          </div>
-        </div>
-        <div
-          role="button"
-          title="Hide"
-          tabindex="0"
-          class="sidebar___close-container"
-          @click="close"
-        >
-          <div class="sidebar___close-wrapper"> <!-- ToDo: import the svg-->
-            <svg
-              class="sidebar___close"
-              x="0px"
-              y="0px"
-              width="14px"
-              height="14px"
-              viewBox="0 0 10 10"
-              focusable="false"
-              fill="#000000"
-            >
-              <polygon
-                points="10,1.01 8.99,0 5,3.99 1.01,0 0,1.01 3.99,5 0,8.99 1.01,10 5,6.01 8.99,10 10,8.99 6.01,5 "
-              />
-            </svg>
+            <div class="sidebar___section" role="tab" :style="selectSection('Options')">
+              <portal-target name="sidebar"></portal-target>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <portal-target name="sidebar" v-if="plugin"></portal-target>
   </div>
 </template>
 
@@ -56,15 +31,22 @@ import {
 } from "vue-property-decorator";
 import { mapGetters, mapState } from "vuex";
 import { ViewPlugin } from "../FlowGraph/components/plugin-renderer-vue/src";
+import { Node } from "@/modules/FlowGraph/components/core/src/node.ts";
+
+import SidebarHeader from "./Header.vue";
+import SidebarSection from "./Section.vue";
 
 @Component({
+  name: "Sidebar",
+  components: {
+    SidebarHeader,
+    SidebarSection,
+  },
   methods: {
     ...mapGetters("flowData", ["getViewPlugin"]),
   },
   computed: {
     ...mapState("flowData", {
-      initiated: "initiated",
-      editor: "editor",
       plugin: "viewPlugin",
     }),
   },
@@ -72,29 +54,24 @@ import { ViewPlugin } from "../FlowGraph/components/plugin-renderer-vue/src";
 export default class Sidebar extends Vue {
   minWidth: number = 100;
   width: number = 328;
-  initiated!: Boolean;
-  
-    @Provide("plugin")
-    plugin!: ViewPlugin;
+  selectedNav: String = "Details";
 
+  @Provide("plugin")
+  plugin!: ViewPlugin;
 
-  get nodeName() {
-    if (!this.plugin.sidebar.nodeId) return;
-
-    const id = this.plugin.sidebar.nodeId;
-    const n = this.plugin.editor.nodes.find((x) => x.id === id);
-
-    return n ? n.name : "";
+  public constructor() {
+    super();
   }
 
   get styles() {
     return {
       width: this.width + "px",
+      display: !this.plugin.sidebar.visible ? "none" : null,
     };
   }
 
-  close() {
-    this.plugin.sidebar.visible = false;
+  selectSection(name: string) {
+    return { display: !(this.selectedNav == name) ? "none" : null };
   }
 
   startResize() {
@@ -117,118 +94,87 @@ export default class Sidebar extends Vue {
       this.width = 0.9 * maxWidth;
     }
   }
+
+  selectNav(name: String) {
+    this.selectedNav = name;
+  }
+
+  get classes() {
+    return {
+      sidebar___wrapper: true,
+    };
+  }
 }
 </script>
 
-<style  scoped>
-.sidebar___header-container {
-  -webkit-flex: 0 0 auto;
-  flex: 0 0 auto;
-  background-color: rgba(0, 0, 0, 0);
-  border-left: 1px solid transparent;
-  margin: 0 0 0 -1px;
-  padding-top: 8px;
-}
 
-.sidebar___header-wrapper {
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 16px;
-  line-height: 24px;
-  min-height: 64px;
-  padding: 20px 0;
-  position: relative;
-}
-
-.sidebar___title-container {
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
-  margin-left: 24px;
-  max-width: -webkit-calc(100% - 80px);
-  max-width: calc(100% - 80px);
-  width: -webkit-calc(100% - 80px);
-  width: calc(100% - 80px);
-}
-
-.sidebar___title-wrapper {
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  cursor: pointer;
+<style lang="scss"  scoped>
+.sidebar {
   height: 100%;
-  position: relative;
-}
-
-.sidebar___title-icon-container {
-  -webkit-flex: 0 0 auto;
   flex: 0 0 auto;
-  display: inline-block;
-  line-height: 24px;
-  margin-right: 18px;
-  text-align: center;
-}
-
-.sidebar___title-icon-wrapper {
-  height: 24px;
-  width: 24px;
-}
-
-.sidebar___title-icon {
-  height: 24px;
-  width: 24px;
-}
-
-.sidebar___title {
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
-  font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
-  font-size: 22px;
-  font-variant-ligatures: no-contextual;
-  font-weight: 400;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #202124;
-  display: inline-block;
-  line-height: 24px;
-  overflow: hidden;
-  padding-left: 0;
-  width: auto;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.sidebar___close-container {
-  -webkit-flex: 0 0 auto;
-  flex: 0 0 auto;
-  cursor: pointer;
-  height: 24px;
-  margin: 0 24px 0 8px;
-  opacity: 0.5;
+  min-width: 5%;
+  max-width: 90%;
   position: relative;
-  right: 0;
-  top: 0;
-  width: 24px;
-}
 
-.sidebar___close-wrapper {
-  bottom: 7px;
-  left: 7px;
-  right: 7px;
-  top: 7px;
-}
+  .sidebar___wrapper {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    background-color: transparent;
+    height: 100%;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    z-index: 4;
+    border-left: 1px solid #dadce0;
+  }
 
-.sidebar___close {
-  padding: 5px;
+  & .__resizer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    cursor: col-resize;
+  }
+
+  & .__close {
+    font-size: 2em;
+    border: none;
+    background: none;
+    color: rgb(161, 161, 161);
+    cursor: pointer;
+  }
+
+  .sidebar___flex-wrapper {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    max-width: 100%;
+  }
+
+  .sidebar___body-container {
+    flex: 1 1 auto;
+    position: relative;
+  }
+
+  .sidebar___body-wrapper {
+    background-color: #fff;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+  .sidebar___section {
+    height: 100%;
+    width: 100%;
+    color: #6e6d7a;
+  }
 }
 </style>

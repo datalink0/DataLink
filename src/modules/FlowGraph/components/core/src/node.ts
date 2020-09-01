@@ -1,4 +1,5 @@
 import generateId from "./idGenerator";
+import * as moment from 'moment'
 import { NodeInterface } from "./nodeInterface";
 import { INodeState } from "../types/state";
 import { Editor } from "./editor";
@@ -13,7 +14,6 @@ export interface IInterfaceCreateOptions {
 
     icon?: string;
     color?: string;
-    sidebarComponent?: string;
 }
 
 /**
@@ -25,8 +25,6 @@ export abstract class Node implements INode {
     public abstract type: string;
     /** Customizable display name of the node. */
     public abstract name: string;
-    /** Customizable siebarcomponent of the node. */
-    public abstract sidebarComponent: string;
     /** Unique identifier of the node */
     public id: string = "node_" + generateId();
     /** A map of all interfaces of the node.
@@ -43,11 +41,35 @@ export abstract class Node implements INode {
     /** Use this property to save additional state of the node */
     public state: Record<string, any> = {};
 
+    /** result of the calculation */
+    public result: String | Number = 0;
+
     /** icon for the node */
     public icon: string = "";
 
-     /** color of the node */
+    /** color of the node */
     public color: string = "#f7f7f7";
+
+    //FIXME: should be a string when exporting and transform into moment object when importing
+    /** date of creation */
+    public createdDate: moment.Moment = moment.utc();
+
+    /** date of modification */
+    public lastMOdifiedDate: moment.Moment = moment.utc();
+
+    //TODO: create user class and assign value 
+    /** created by user */
+    public createdById!: String;
+
+    //TODO: create user class and assign value 
+    /** modified by user */
+    public lastMOdifiedByID!: String;
+
+    /** Description of the Node */
+    public description: String = "";
+
+    /** list of fields that will be shown in the sidebar */
+    public valuesForSidebar: Record<string, String> = { type: 'Type', id: 'ID', createdById: 'Owner', createdDate: 'Created', lastMOdifiedDate: 'Modified', lastMOdifiedByID: 'Modified by' };
 
     public events = {
         beforeAddInterface: new PreventableBaklavaEvent<IAddInterfaceEventData>(),
@@ -199,7 +221,7 @@ export abstract class Node implements INode {
      * @returns The created option or undefined, if the option was not created
      */
     protected addOption(name: string, component: string, defaultValue: any = null,
-                        sidebarComponent?: string, additionalProperties?: Record<string, any>) {
+        sidebarComponent?: string, additionalProperties?: Record<string, any>) {
         if (this.events.beforeAddOption.emit({ name, component, defaultValue, sidebarComponent })) { return; }
         const opt = new NodeOption(component, defaultValue, sidebarComponent);
         Object.entries(additionalProperties || {}).forEach(([k, v]) => { opt[k] = v; });

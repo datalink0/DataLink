@@ -5,6 +5,7 @@ import { IState } from "../types/state";
 import { PreventableBaklavaEvent, BaklavaEvent, SequentialHook } from "../../events/src";
 import { IEditor, IPlugin, IConnection, NodeConstructor, INode, IAddConnectionEventData, IAddNodeTypeEventData } from "../types";
 import generateId from "./idGenerator";
+import {default as store} from '@/store'
 
 /** The main model class for  */
 export class Editor implements IEditor {
@@ -103,6 +104,8 @@ export class Editor implements IEditor {
                 .forEach((c) => this.removeConnection(c));
             this._nodes.splice(this.nodes.indexOf(node), 1);
             this.events.removeNode.emit(node);
+            //FIXME: fix delete setSelectedNode
+            store.commit('flowData/setSelectedNode', null);
         }
     }
 

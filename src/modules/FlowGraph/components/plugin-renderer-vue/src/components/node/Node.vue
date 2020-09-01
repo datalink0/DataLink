@@ -19,7 +19,7 @@
         <div class="node___icon-wrapper">
           <i class="node___icon" v-html="data.icon"></i>
         </div>
-        <div class="__title">
+        <div class="__title" :title="data.name">
           <span>{{ data.name }}</span>
         </div>
       </div>
@@ -45,7 +45,7 @@
               v-if="plugin.sidebar.nodeId === data.id && plugin.sidebar.optionName === name && option.sidebarComponent"
             >
               <component
-                :is="data.sidebarComponent"
+                :is="plugin.components.nodeOption"
                 :key="data.id + name"
                 :name="name"
                 :option="option"
@@ -105,6 +105,7 @@ export default class NodeView extends Vue {
 
   @Inject("plugin")
   plugin!: ViewPlugin;
+
 
   dragging = false;
   tempName = "";
@@ -169,6 +170,7 @@ export default class NodeView extends Vue {
 
   select() {
     this.$emit("select", this);
+    this.$store.commit('flowData/setSelectedNode', this.data);
   }
 
   stopDrag() {
@@ -185,9 +187,9 @@ export default class NodeView extends Vue {
   }
 
   openSidebar() {
-  
     this.plugin.sidebar.nodeId = this.data.id;
-    this.plugin.sidebar.optionName = "SidebarTest";
+    this.plugin.sidebar.optionName = "Sidebar";
+    this.plugin.sidebar.visible = true;
   }
 
   openContextMenu(ev: MouseEvent) {

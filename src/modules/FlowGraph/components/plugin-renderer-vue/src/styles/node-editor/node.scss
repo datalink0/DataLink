@@ -25,6 +25,7 @@
 
     .node___wrapper{
         flex: 1 1 auto;
+        width: 100%;
     }
 
     .node___icon-wrapper{
@@ -36,6 +37,11 @@
         padding: 8px 15px;
     }
 
+    .node___title-container{
+       display: flex;
+       align-items: center;
+    }
+
     .__title {
         display: inline-block;
         background: $color-node-title-background;
@@ -43,11 +49,20 @@
         padding: 0.4em 0.75em;
         border-radius: $border-radius-node $border-radius-node 0 0;
         font-size: 13.5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; 
+        
 
         & > span {
             pointer-events: none;
         }
 
+    }
+
+    .__inputs {
+        display: flex;
+        flex-direction: column;
     }
 
     & > .__content {

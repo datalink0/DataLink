@@ -27,14 +27,13 @@ function getDefaultValue(v: any) {
 }
 
 function generateNode(
-    type: string, name: string, sidebarComponent: string, additionalProperties: Record<string, any>|undefined, intfs: IInterfaceOptions[],
+    type: string, name: string, additionalProperties: Record<string, any>|undefined, intfs: IInterfaceOptions[],
     options: Map<string, INodeOptionParameters>, calcFunction?: CalculationFunction
 ) {
     return class extends Node {
 
         type = type;
         name = name;
-        sidebarComponent = sidebarComponent;
 
         constructor() {
             super();
@@ -67,7 +66,6 @@ export class NodeBuilder {
 
     private type = "";
     private name = "";
-    private sidebarComponent = "";
     private additionalProperties?: Record<string, any>;
     private intfs: IInterfaceOptions[] = [];
     private options: Map<string, INodeOptionParameters> = new Map();
@@ -90,7 +88,7 @@ export class NodeBuilder {
      * @returns The generated node class
      */
     public build(): NodeConstructorImpl {
-        return generateNode(this.type, this.name, this.sidebarComponent, this.additionalProperties, this.intfs, this.options, this.calcFunction);
+        return generateNode(this.type, this.name, this.additionalProperties, this.intfs, this.options, this.calcFunction);
     }
 
     /**

@@ -116,6 +116,7 @@ export class Engine implements IPlugin {
         if (this.recalculateOrder) {
             this.calculateOrder();
         }
+        
         const results: Map<INode, any> = new Map();
         for (const n of this.nodeCalculationOrder) {
             const r = await n.calculate(calculationData);
@@ -123,6 +124,7 @@ export class Engine implements IPlugin {
                 results.set(n, r);
             }
             if (this.connectionsPerNode.has(n)) {
+                
                 this.connectionsPerNode.get(n)!.forEach((c) => {
                     const conversion = this.interfaceTypePlugins.find(
                         (p) => p.canConvert((c.from as any).type, (c.to as any).type));

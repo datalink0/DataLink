@@ -14,6 +14,13 @@ export interface INode {
     interfaces: Map<string, INodeInterface>;
     options: Map<string, INodeOption>;
     state: Record<string, any>;
+    result: String | Number;
+    createdDate: moment.Moment;
+    lastMOdifiedDate: moment.Moment;
+    createdById: String;
+    lastMOdifiedByID: String;
+    description: String;
+    valuesForSidebar: Record<string, String> ;
 
     events: {
         beforeAddInterface: IPreventableBaklavaEvent<IAddInterfaceEventData>,

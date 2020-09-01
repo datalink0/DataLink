@@ -19,7 +19,7 @@ export class ViewPlugin implements IPlugin, IViewPlugin {
     public editor!: IEditor;
     public panning = { x: 0, y: 0 };
     public scaling = 1;
-    public sidebar = { visible: true ,nodeId: "", optionName: "" };
+    public sidebar = { visible: false ,nodeId: "", optionName: "", active: true };
 
     /** Use straight connections instead of bezier curves */
     public useStraightConnections = false;

@@ -14,7 +14,7 @@ export interface IViewPlugin extends IPlugin {
     editor: IEditor;
     panning: { x: number, y: number };
     scaling: number;
-    sidebar: { visible: boolean, nodeId: string, optionName: string };
+    sidebar: { visible: boolean, nodeId: string, optionName: string, active: boolean };
 
     // TODO: Don't want to import Vue here, unless we can only import the type
     // options: Record<string, VueConstructor>;
