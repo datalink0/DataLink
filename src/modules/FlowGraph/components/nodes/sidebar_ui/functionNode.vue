@@ -1,38 +1,211 @@
 <template>
-    <div>
-        <h1>Sidebar Option</h1>
-        <p>This is an advanced option</p>
-        <p>{{ value }}</p>
-        <input
-            type="text"
-            :value="value"
-            v-on="listeners"
-            @click="emit"
-        >
+  <div class="sidebar___section-wrapper">
+    <div class="sidebar___section-part">
+      <div class="sidebar___section-block block-formula" role="region">
+        <div class="sidebar___section-block-container">
+          <div class="sidebar___body-block-wrapper">
+            <div class="sidebar___section-block-key">formula</div>
+            <div class="sidebar___formula-container">
+              <div :class="classes">
+                <input
+                  class="sidebar___formula"
+                  type="text"
+                  v-model="formulaValue"
+                  name="formula"
+                  v-on="listeners"
+                  autocomplete="off"
+                  placeholder=""
+                  v-on:keyup.enter="commitInput"
+                />
+                <button
+                  class="sidebar____button buttton---cancel"
+                  :style="styles"
+                  @click="cancelInput"
+                >
+                  <font-awesome-icon class="fa-fw" :icon="['fas', 'times-circle',]" />
+                </button>
+                <button
+                  class="sidebar____button buttton---commit"
+                  :style="styles"
+                  @click="commitInput"
+                >
+                  <font-awesome-icon class="fa-fw" :icon="['fas', 'check-circle']" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { InputOption } from "../../plugin-options-vue/src";
-@Component({
-    components: { InputOption }
-})
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+// @ts-ignore
+import { Parser as FormulaParser } from "hot-formula-parser";
+
+//TODO: Create Vue Component fpr formula field
+
+import {
+  faTimes,
+  faCheck,
+  faCheckCircle,
+  faTimesCircle,
+} from "@fortawesome/free-solid-svg-icons";
+library.add(faTimes, faCheck, faCheckCircle, faTimesCircle);
+
+@Component({})
 export default class FunctionNodeUI extends Vue {
-    
-    get sanitized() {
-        return String(this.value);
-    }
+  
+  @Prop({ default: "" })
+  value!: string;
 
-    @Prop({ default: "" })
-    value!: string;
+  editing: boolean = false;
+  hasError: boolean = false;
+  temp: string = "";
+  parser = new FormulaParser();
 
-    emit(){
-        this.$emit('input','hallo')
-    }
+  constructor() {
+    super();
+  }
 
-    get listeners(): any {
-        return { ...this.$listeners, input: (ev: any) => this.$emit("input", ev.target.value) };
+  get styles() {
+    return {
+      display: !this.editing ? "none" : null,
+    };
+  }
+
+  get classes() {
+    return {
+      sidebar___input: true,
+      "sidebar___formula-wrapper": true,
+      "sidebar___input---error": this.hasError,
+    };
+  }
+
+  get formulaValue() {
+    if (this.editing) return this.temp;
+    return this.value;
+  }
+
+  set formulaValue(val: any) {
+    if (this.editing) this.temp = val;
+  }
+
+  get listeners(): any {
+    return {
+      focus: (ev: any) => {
+        if (this.editing == false) {
+          this.editing = true;
+          this.temp = this.value;
+        }
+      },
+    };
+  }
+
+  commitInput() {
+    if (this.validateInput()) {
+      this.hasError = true;
+    } else {
+      this.$emit("input", this.temp);
+      this.resetTemp();
     }
+  }
+
+  cancelInput() {
+    this.resetTemp();
+  }
+
+  resetTemp() {
+    this.temp = "";
+    this.editing = false;
+    this.hasError = false;
+  }
+
+  validateInput() {
+    return this.parser.parse(this.temp).error;
+  }
 }
 </script>
+
+<style scoped>
+.sidebar___formula-container {
+  padding: 10px 0px 4px 0px;
+}
+
+.sidebar___formula-wrapper {
+  width: 100%;
+  padding: 10px 80px 8px 15px;
+  border: solid 1px #dadce0;
+  border-radius: 4px;
+  box-shadow: inset -1px 0.2rem 0rem 0px rgba(0, 0, 0, 0.03);
+  transition: all 0.1s ease-in-out;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.sidebar___formula {
+  line-height: 18px;
+  font-size: 14px;
+  border: none;
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: inherit;
+}
+
+.sidebar___formula-wrapper:focus-within {
+  outline: #4285f4 auto 1px;
+  background-color: #fefefe;
+  transition: all 0.1s ease-in-out;
+}
+
+.sidebar___input button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  line-height: 0;
+  position: absolute;
+  height: 100%;
+  transition: all 200ms ease;
+}
+
+.sidebar___input button svg {
+  color: #b3b3b3;
+  padding: 10px 8px;
+  font-size: 14px;
+  transition: all 200ms ease;
+}
+
+.sidebar___input button:hover svg {
+  color: #5f6368;
+  transition: all 200ms ease;
+}
+
+.sidebar___input button:hover {
+  outline: none;
+  background-color: rgba(60, 64, 67, 0.08);
+  transition: all 200ms ease;
+}
+
+.buttton---commit {
+  right: 0;
+  top: 0;
+}
+
+.buttton---cancel {
+  right: 34px;
+  top: 0;
+}
+
+.sidebar___input---error,
+.sidebar___input---error:focus-within {
+  outline: #dc3545 auto 2px;
+}
+</style>

@@ -8,8 +8,13 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-regular-svg-icons": "^5.14.0",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/vue-fontawesome": "^2.0.0",
     "@juggle/resize-observer": "^3.2.0",
     "core-js": "^3.6.5",
+    "hot-formula-parser": "^3.0.2",
     "immer": "^7.0.7",
     "moment": "^2.27.0",
     "portal-vue": "^2.1.7",

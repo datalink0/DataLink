@@ -10,12 +10,12 @@ export class OutputNode extends Node {
     public constructor() {
         super();
         this.addInputInterface("Input");
-        this.addOption("Value", "NumberOption", 0);
     }
 
     public calculate() {
-        this.setOptionValue("Value", this.getInterface("Input").value);
-        this.result =  this.getOptionValue("Value");
+        //TODO: fix it
+        this.result = this.getInterface("Input").value
+        console.log(this.getInterface("Input").value)
     }
 
 }

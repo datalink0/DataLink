@@ -35,18 +35,18 @@
             <div class="sidebar___section-block-key">Description</div>
           </div>
           <div class="sidebar___description-container">
-            <span
+            <p
               class="sidebar___description"
-              @click="edit(data.description)"
+              @click="edit(data.description, $event)"
               v-if="!editing"
               :title="data.description"
-            >{{data.description || "Add a description"}}</span>
+            >{{data.description || "Add a description"}}</p>
             <textarea
               class="sidebar___description---edit"
+              ref="textarea"
               v-else
               v-model="temp"
               v-click-outside="() => (doneEditing(data,'description'))"
-              @keydown.enter="() => (doneEditing(data, 'description'))"
             />
           </div>
         </div>
@@ -79,6 +79,22 @@ import { INodeInterface, INode } from "../FlowGraph/components/core/types";
   components: {},
   methods: {
     ...mapGetters("flowData", ["selectedNode"]),
+
+    onClickOutside(event) {
+      console.log("Clicked outside. Event: ", event);
+    },
+
+    handler(event) {
+      console.log(
+        "Clicked outside (Using config), middleware returned true :)"
+      );
+    },
+    // Note: The middleware will be executed if the event was fired outside the element.
+    //       It should have only sync functionality and it should return a boolean to
+    //       define if the handler should be fire or not
+    middleware(event) {
+      return event.target.className !== "modal";
+    },
   },
   computed: {
     ...mapState("flowData", {
@@ -110,25 +126,29 @@ export default class SidebarSection extends Vue {
     return value;
   }
 
-  edit(value: any) {
+  edit(value: any, event: Event) {
+    // var selection = window.getSelection();
+    // if (selection.type != "Range") console.log(selection);
     this.temp = value;
     this.editing = true;
   }
 
   doneEditing(data: Node, key: string) {
     //TODO: check if field is empty
+    //FIXME: check if field got selected
+    //FIXME: Linebreaks this.temp.replace(/(?:\r\n|\r|\n)/g, '<br>');
 
     (data as any)[key] = this.temp;
     this.editing = false;
   }
 
-  get result(){
+  get result() {
     return this.data.result;
   }
 }
 </script>
 
-<style scoped>
+<style>
 /* Details */
 
 .sidebar___section-wrapper {
@@ -158,7 +178,7 @@ export default class SidebarSection extends Vue {
 }
 
 .sidebar___section-block-key {
-  color: #8a8a8a;
+  color: #6e6d7a;
   font-weight: bold;
   padding-bottom: 16px;
   text-transform: uppercase;
@@ -190,7 +210,7 @@ export default class SidebarSection extends Vue {
 .sidebar____list-row-key {
   -webkit-flex: 0 0 100px;
   flex: 0 0 100px;
-  color: #5f6368;
+  color: #333;
   font-weight: bold;
 }
 
@@ -201,10 +221,11 @@ export default class SidebarSection extends Vue {
   flex: 0 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #6e6d7a;
 }
 
 .sidebar___description-container {
-  color: #202124;
+  color: #333;
 }
 
 .sidebar___description {
@@ -215,12 +236,6 @@ export default class SidebarSection extends Vue {
   padding: 8px;
   display: block;
   border-radius: 3px;
-}
-
-.sidebar___description:hover {
-  background: #f3f3f4;
-  -webkit-transition: all 200ms ease;
-  transition: all 200ms ease;
 }
 
 .sidebar___description---edit {
@@ -245,7 +260,7 @@ export default class SidebarSection extends Vue {
 
 .sidebar___result {
   font-size: 24px;
-  color: #202124;
+  color: #333;
   line-height: 24px;
 }
 </style>

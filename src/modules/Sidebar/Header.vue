@@ -146,7 +146,6 @@ export default class SidebarHeader extends Vue {
 .sidebar___header-container {
   -webkit-flex: 0 0 auto;
   flex: 0 0 auto;
-  background-color: rgba(0, 0, 0, 0);
   border-left: 1px solid transparent;
   margin: 0 0 0 -1px;
   padding-top: 8px;
@@ -218,7 +217,7 @@ export default class SidebarHeader extends Vue {
   font-weight: 400;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  color: #202124;
+  color: #333;
   display: inline-block;
   line-height: 24px;
   overflow: hidden;
@@ -287,7 +286,7 @@ export default class SidebarHeader extends Vue {
   font-size: 14px;
   font-variant-ligatures: no-contextual;
   font-weight: 400;
-  color: #5f6368;
+  color: #6e6d7a;
   cursor: pointer;
   display: inline-block;
   -webkit-box-flex: 1 1 auto;

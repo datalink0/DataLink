@@ -6,7 +6,9 @@ import store from './store'
 Vue.config.productionTip = false
 
 import '@/styles/style.css';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 new Vue({
   router,

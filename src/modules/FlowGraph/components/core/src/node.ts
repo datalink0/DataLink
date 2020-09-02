@@ -55,7 +55,7 @@ export abstract class Node implements INode {
     public createdDate: moment.Moment = moment.utc();
 
     /** date of modification */
-    public lastMOdifiedDate: moment.Moment = moment.utc();
+    public lastModifiedDate: moment.Moment = moment.utc();
 
     //TODO: create user class and assign value 
     /** created by user */
@@ -69,7 +69,7 @@ export abstract class Node implements INode {
     public description: String = "";
 
     /** list of fields that will be shown in the sidebar */
-    public valuesForSidebar: Record<string, String> = { type: 'Type', id: 'ID', createdById: 'Owner', createdDate: 'Created', lastMOdifiedDate: 'Modified', lastMOdifiedByID: 'Modified by' };
+    public valuesForSidebar: Record<string, String> = { type: 'Type', id: 'ID', createdById: 'Owner', createdDate: 'Created', lastModifiedDate: 'Modified', lastMOdifiedByID: 'Modified by' };
 
     public events = {
         beforeAddInterface: new PreventableBaklavaEvent<IAddInterfaceEventData>(),

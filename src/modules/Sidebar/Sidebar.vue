@@ -174,7 +174,6 @@ export default class Sidebar extends Vue {
   .sidebar___section {
     height: 100%;
     width: 100%;
-    color: #6e6d7a;
   }
 }
 </style>

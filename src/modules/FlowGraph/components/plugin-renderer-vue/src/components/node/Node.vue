@@ -10,6 +10,7 @@
         :data="input"
       ></component>
     </div>
+    <!-- Main -->
     <div class="node___wrapper">
       <div
         class="node___title-container"
@@ -57,7 +58,6 @@
         </div>
       </div>
     </div>
-
     <!-- Outputs -->
     <div class="__outputs">
       <component

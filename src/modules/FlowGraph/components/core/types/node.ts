@@ -16,7 +16,7 @@ export interface INode {
     state: Record<string, any>;
     result: String | Number;
     createdDate: moment.Moment;
-    lastMOdifiedDate: moment.Moment;
+    lastModifiedDate: moment.Moment;
     createdById: String;
     lastMOdifiedByID: String;
     description: String;
