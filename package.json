@@ -1,6 +1,6 @@
 {
   "name": "datalink",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -15,7 +15,6 @@
     "@juggle/resize-observer": "^3.2.0",
     "core-js": "^3.6.5",
     "hot-formula-parser": "^3.0.2",
-    "immer": "^7.0.7",
     "moment": "^2.27.0",
     "portal-vue": "^2.1.7",
     "v-click-outside": "^3.0.1",
@@ -39,9 +38,7 @@
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "shortid": "^2.2.15",
-    "typescript": "~3.9.3",
-    "vue-svg-loader": "^0.16.0",
-    "vue-template-compiler": "^2.6.12"
+    "typescript": "~3.9.3"
   },
   "browserslist": [
     "> 1%",

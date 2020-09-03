@@ -5,7 +5,6 @@
         <div class="header-container__logo__container">
           <div class="header-container__logo__wrapper">
             <a class="header-container__logo__link">
-              <VueLogo class="header-container__logo__image" />
               <span class="header-container__logo__title">DataLink</span>
             </a>
           </div>
@@ -16,7 +15,6 @@
         <div class="header-container__user__container header___button-container">
           <div class="header-container__user__wrapper header___button-wrapper">
             <a class="header___user-image-container">
-              <UserIcon class="header___user-image" />
             </a>
           </div>
         </div>
@@ -28,15 +26,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import VueLogo from "@/assets/logo.svg";
-import UserIcon from "@/assets/user.svg";
 
 //import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 
 //library.add(faQuestionCircle);
 
 @Component({
-  components: { VueLogo, UserIcon },
+  components: { },
 })
 export default class Header extends Vue {}
 </script>
