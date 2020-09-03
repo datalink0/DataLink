@@ -27,12 +27,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-//@ ts-ignore
+import { library } from "@fortawesome/fontawesome-svg-core";
 import VueLogo from "@/assets/logo.svg";
 import UserIcon from "@/assets/user.svg";
 
+//import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+
+//library.add(faQuestionCircle);
+
 @Component({
-  components: { VueLogo,UserIcon },
+  components: { VueLogo, UserIcon },
 })
 export default class Header extends Vue {}
 </script>
@@ -121,7 +125,15 @@ header {
   flex: 0 1 auto;
 }
 
-.header___user-image-wraper {
+.header___button-wrapper {
+  padding: 4px 2px;
+  -webkit-flex: 0 1 auto;
+  flex: 0 1 auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header___button-wrapper a {
   color: #000;
   cursor: pointer;
   text-decoration: none;
@@ -143,7 +155,7 @@ header {
   text-decoration: none;
 }
 
-.header___user-image {
+.header___button-wrapper a svg {
   -webkit-background-size: 32px 32px;
   background-size: 32px 32px;
   border: 0;
@@ -201,5 +213,10 @@ header {
   border: 0;
   vertical-align: middle;
 }
+
+.header___user-question-container{
+
+}
+
 </style>>
 

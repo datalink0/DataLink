@@ -51,14 +51,12 @@ import { Parser as FormulaParser } from "hot-formula-parser";
 //FIXME: when we leave the component, the input will get reset
 
 import {
-  faTimes,
-  faCheck,
   faCheckCircle,
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { INode } from "../../core/types";
 import { Node } from "../../core/src";
-library.add(faTimes, faCheck, faCheckCircle, faTimesCircle);
+library.add(faCheckCircle, faTimesCircle);
 
 @Component({})
 export default class FunctionNodeUI extends Vue {
