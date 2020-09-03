@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
+    "@types/shortid": "0.0.29",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",
@@ -37,8 +38,10 @@
     "@vue/test-utils": "^1.0.3",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "shortid": "^2.2.15",
     "typescript": "~3.9.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-svg-loader": "^0.16.0",
+    "vue-template-compiler": "^2.6.12"
   },
   "browserslist": [
     "> 1%",

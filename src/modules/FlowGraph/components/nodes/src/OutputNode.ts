@@ -1,4 +1,5 @@
 import { Node } from "../../core/src";
+import { INode } from '../../core/types';
 
 export class OutputNode extends Node {
 
@@ -7,15 +8,24 @@ export class OutputNode extends Node {
     public twoColumn = true;
     public icon = "&fnof;";
 
+
     public constructor() {
         super();
-        this.addInputInterface("Input");
+        this.addInputInterface("Input", undefined, 0, { type: "number" });
     }
 
     public calculate() {
-        //TODO: fix it
-        this.result = this.getInterface("Input").value
-        console.log(this.getInterface("Input").value)
+        let sum: Number = 0;
+        let valueMap: Map<INode, any[]> | undefined = this.getConnectionValueMap;
+
+        if (valueMap) {
+            for (let values of valueMap.values()) {
+                for (let value of values) {
+                    sum += value;
+                }
+            }
+        }
+        this.result = sum;
     }
 
 }

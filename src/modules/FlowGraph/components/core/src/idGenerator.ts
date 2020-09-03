@@ -1,7 +1,7 @@
-let counter = 0;
+import shortid from "shortid";
 
-// TODO: Create a better idGenerator
+shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-');
 
 export default function generateId() {
-    return Date.now().toString() + (counter++).toString();
+    return shortid.generate().replace("-","W");
 }

@@ -10,7 +10,9 @@
               <SidebarSection />
             </div>
             <div class="sidebar___section" role="tab" :style="selectSection('Options')">
-              <portal-target name="sidebar"></portal-target>
+              <keep-alive name="sidebar">
+                <portal-target name="sidebar"></portal-target>
+              </keep-alive>
             </div>
           </div>
         </div>

@@ -5,23 +5,34 @@
         <div class="header-container__logo__container">
           <div class="header-container__logo__wrapper">
             <a class="header-container__logo__link">
-              <img src alt class="header-container__logo__image" />
+              <VueLogo class="header-container__logo__image" />
               <span class="header-container__logo__title">DataLink</span>
             </a>
           </div>
         </div>
       </div>
       <div class="header-container__column header__middle"></div>
-      <div class="header-container__column header__right"></div>
+      <div class="header-container__column header__right">
+        <div class="header-container__user__container header___button-container">
+          <div class="header-container__user__wrapper header___button-wrapper">
+            <a class="header___user-image-container">
+              <UserIcon class="header___user-image" />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+//@ ts-ignore
+import VueLogo from "@/assets/logo.svg";
+import UserIcon from "@/assets/user.svg";
 
 @Component({
-  components: {},
+  components: { VueLogo,UserIcon },
 })
 export default class Header extends Vue {}
 </script>
@@ -77,6 +88,75 @@ header {
   flex: 1 0 auto;
 }
 
+.header__right {
+  /* padding-right: 30px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-flex: 1 0 auto;
+  flex: 1 0 auto; */
+
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 48px;
+  line-height: normal;
+  padding: 0 4px;
+  padding-left: 30px;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -webkit-box-pack: flex-end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+.header___button-container {
+  padding: 4px 2px;
+  -webkit-flex: 0 1 auto;
+  flex: 0 1 auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header___button-wrapper {
+  -webkit-flex: 0 1 auto;
+  flex: 0 1 auto;
+}
+
+.header___user-image-wraper {
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 4px;
+  -webkit-flex: 0 1 auto;
+  flex: 0 1 auto;
+
+  display: inline-block;
+  outline: none;
+  vertical-align: middle;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 40px;
+  width: 40px;
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.header___user-image {
+  -webkit-background-size: 32px 32px;
+  background-size: 32px 32px;
+  border: 0;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  display: block;
+  margin: 0;
+  position: relative;
+  height: 42px;
+  width: 42px;
+  z-index: 0;
+}
+
 .header-container__logo__container {
   -webkit-box-align: center;
   -webkit-align-items: center;
@@ -112,6 +192,14 @@ header {
   color: #5f6368;
   opacity: 1;
   padding-left: 4px;
+}
+
+.header-container__logo__image {
+  width: 40px;
+  margin-bottom: 4px;
+  padding-right: 4px;
+  border: 0;
+  vertical-align: middle;
 }
 </style>>
 

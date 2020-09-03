@@ -14,7 +14,7 @@
                   name="formula"
                   v-on="listeners"
                   autocomplete="off"
-                  placeholder=""
+                  placeholder
                   v-on:keyup.enter="commitInput"
                 />
                 <button
@@ -42,12 +42,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { Editor } from "../../plugin-renderer-vue/src";
 import { library } from "@fortawesome/fontawesome-svg-core";
-
 // @ts-ignore
 import { Parser as FormulaParser } from "hot-formula-parser";
 
-//TODO: Create Vue Component fpr formula field
+//TODO: Create Vue Component for formula field
+//FIXME: when we leave the component, the input will get reset
 
 import {
   faTimes,
@@ -55,18 +56,23 @@ import {
   faCheckCircle,
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { INode } from "../../core/types";
+import { Node } from "../../core/src";
 library.add(faTimes, faCheck, faCheckCircle, faTimesCircle);
 
 @Component({})
 export default class FunctionNodeUI extends Vue {
-  
   @Prop({ default: "" })
   value!: string;
+  @Prop()
+  editor!: Editor;
+  @Prop()
+  node!: Node;
 
-  editing: boolean = false;
-  hasError: boolean = false;
-  temp: string = "";
-  parser = new FormulaParser();
+  private editing: boolean = false;
+  private hasError: boolean = false;
+  private temp: string = "";
+  private parser = new FormulaParser();
 
   constructor() {
     super();
@@ -103,6 +109,13 @@ export default class FunctionNodeUI extends Vue {
           this.temp = this.value;
         }
       },
+      input:(ev: any) => {
+        if (this.editing == false) {
+          // FIXME:
+          this.editing = true;
+          this.temp = this.value;
+        }
+      },
     };
   }
 
@@ -110,7 +123,7 @@ export default class FunctionNodeUI extends Vue {
     if (this.validateInput()) {
       this.hasError = true;
     } else {
-      this.$emit("input", this.temp);
+      this.$emit("input", this.temp.trim());
       this.resetTemp();
     }
   }
@@ -125,7 +138,23 @@ export default class FunctionNodeUI extends Vue {
     this.hasError = false;
   }
 
+  // Check if the formula is valid
   validateInput() {
+    // TODO: add an option to allow node names instead of just node id
+    let connectedNodes: Map<INode, any[]> | undefined = this.node
+      .getConnectionValueMap;
+
+    this.parser.on("callVariable", function (name: String, done: Function) {  
+      if (connectedNodes) {
+        for (let node of connectedNodes.keys()) {
+          if (node.id === name.trim()) {
+            //set 1 so the parser just knows that formula works
+            done(1);
+            break;
+          }
+        }
+      }
+    });
     return this.parser.parse(this.temp).error;
   }
 }
@@ -157,6 +186,7 @@ export default class FunctionNodeUI extends Vue {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: inherit;
+  text-overflow:ellipsis;
 }
 
 .sidebar___formula-wrapper:focus-within {

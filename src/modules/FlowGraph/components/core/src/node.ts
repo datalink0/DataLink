@@ -287,6 +287,15 @@ export abstract class Node implements INode {
         this.editorInstance = editor;
     }
 
+    /**
+     * 
+     * returns a list of all connected nodes and their values
+     */
+    public get getConnectionValueMap () {
+        if (this.editorInstance)
+            return this.editorInstance.getConnectedNodeValues(this);
+    }
+
     private addInterface(isInput: boolean, name: string, option?: string) {
         const intf = new NodeInterface(this, isInput);
         intf.option = option;

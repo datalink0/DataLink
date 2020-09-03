@@ -79,22 +79,6 @@ import { INodeInterface, INode } from "../FlowGraph/components/core/types";
   components: {},
   methods: {
     ...mapGetters("flowData", ["selectedNode"]),
-
-    onClickOutside(event) {
-      console.log("Clicked outside. Event: ", event);
-    },
-
-    handler(event) {
-      console.log(
-        "Clicked outside (Using config), middleware returned true :)"
-      );
-    },
-    // Note: The middleware will be executed if the event was fired outside the element.
-    //       It should have only sync functionality and it should return a boolean to
-    //       define if the handler should be fire or not
-    middleware(event) {
-      return event.target.className !== "modal";
-    },
   },
   computed: {
     ...mapState("flowData", {

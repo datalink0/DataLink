@@ -13,5 +13,5 @@
 <path d="M7.8484 2L11.749 8.64456" stroke="#989898" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M31.8036 37.3353L25.2647 35.2397" stroke="#989898" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M2.00004 37.4712L5.9259 36.2196" stroke="#989898" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7.93298 17.2814L12.6342 9.28931H21.5623L26.2636 17.2814L21.5711 24.7893H12.6254L7.93298 17.2814Z" fill="#E2E7EA" stroke="black"/>
+<path d="M7.93298 17.2814L12.6342 9.28931H21.5623L26.2636 17.2814L21.5711 24.7893H12.6254L7.93298 17.2814Z" fill="#f1f1f1" stroke-width="2px" stroke="white"/>
 </svg>

@@ -49,5 +49,4 @@ export interface INode {
     getOptionValue(name: string): any;
     setOptionValue(name: string, value: any): void;
     registerEditor(editor: IEditor): void;
-
 }

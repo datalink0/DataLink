@@ -45,14 +45,14 @@
               to="sidebar"
               v-if="plugin.sidebar.nodeId === data.id && plugin.sidebar.optionName === name && option.sidebarComponent"
             >
-              <component
-                :is="plugin.components.nodeOption"
-                :key="data.id + name"
-                :name="name"
-                :option="option"
-                :componentName="option.sidebarComponent"
-                :node="data"
-              ></component>
+                <component
+                  :is="plugin.components.nodeOption"
+                  :key="data.id + name"
+                  :name="name"
+                  :option="option"
+                  :componentName="option.sidebarComponent"
+                  :node="data"
+                ></component>
             </portal>
           </template>
         </div>
@@ -105,7 +105,6 @@ export default class NodeView extends Vue {
 
   @Inject("plugin")
   plugin!: ViewPlugin;
-
 
   dragging = false;
   tempName = "";
@@ -170,7 +169,7 @@ export default class NodeView extends Vue {
 
   select() {
     this.$emit("select", this);
-    this.$store.commit('flowData/setSelectedNode', this.data);
+    this.$store.commit("flowData/setSelectedNode", this.data);
   }
 
   stopDrag() {

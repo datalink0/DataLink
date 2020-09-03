@@ -50,6 +50,9 @@ const actions = {
                     state.editor.use(state.intfTypePlugin);
                     state.editor.use(state.engine);
 
+                    // register interface types
+                    state.intfTypePlugin.addType("number", "");
+
                     // register our node types
                     state.editor.registerNodeType("Output", OutputNode);
                     state.editor.registerNodeType("Function", FunctionNode);

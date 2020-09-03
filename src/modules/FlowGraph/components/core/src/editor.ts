@@ -5,7 +5,7 @@ import { IState } from "../types/state";
 import { PreventableBaklavaEvent, BaklavaEvent, SequentialHook } from "../../events/src";
 import { IEditor, IPlugin, IConnection, NodeConstructor, INode, IAddConnectionEventData, IAddNodeTypeEventData } from "../types";
 import generateId from "./idGenerator";
-import {default as store} from '@/store'
+import { default as store } from '@/store'
 
 /** The main model class for  */
 export class Editor implements IEditor {
@@ -83,7 +83,7 @@ export class Editor implements IEditor {
      * @param node Instance of a node
      * @returns Instance of the node or undefined if the node was not added
      */
-    public addNode(node: Node): Node|undefined {
+    public addNode(node: Node): Node | undefined {
         if (this.events.beforeAddNode.emit(node)) { return; }
         node.registerEditor(this);
         this._nodes.push(node);
@@ -115,7 +115,7 @@ export class Editor implements IEditor {
      * @param to Target interface for the connection
      * @returns The created connection. If no connection could be created, returns `undefined`.
      */
-    public addConnection(from: NodeInterface, to: NodeInterface): Connection|undefined {
+    public addConnection(from: NodeInterface, to: NodeInterface): Connection | undefined {
 
         const dc = this.checkConnection(from, to);
         if (!dc) {
@@ -152,7 +152,7 @@ export class Editor implements IEditor {
      * @param to The target node interface (must be an input interface)
      * @returns Whether the connection is allowed or not.
      */
-    public checkConnection(from: NodeInterface, to: NodeInterface): false|DummyConnection {
+    public checkConnection(from: NodeInterface, to: NodeInterface): false | DummyConnection {
 
         if (!from || !to) {
             return false;
@@ -276,6 +276,25 @@ export class Editor implements IEditor {
                 }
             }
         }
+    }
+
+    /**
+     * 
+     * find all connected nodes and return a list of their values
+     */
+    public getConnectedNodeValues(node: INode) {
+        let valuesPerNode = new Map<INode, any[]>();
+        if (this.nodes.includes(node as Node)) {
+            this.connections
+                .filter((c) => c.to.parent === node)
+                .forEach((c) => {
+                    if (valuesPerNode.has(c.from.parent))
+                        valuesPerNode.get(c.from.parent)?.push(c.from.value);
+                    else
+                        valuesPerNode.set(c.from.parent, [c.from.value])
+                });
+        }
+        return valuesPerNode;
     }
 
 }

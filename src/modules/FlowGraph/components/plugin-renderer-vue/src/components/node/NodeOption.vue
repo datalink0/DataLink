@@ -7,7 +7,6 @@
         :value="value"
         :option="option"
         @input="updateValue"
-       @openSidebar="$emit('openSidebar')"
     ></component>
 </template>
 
